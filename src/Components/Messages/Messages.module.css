@@ -1,0 +1,134 @@
+.block {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  height: 100%;
+}
+.dialogsblock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 10px;
+  justify-content: flex-start;
+  width: 30%;
+  height: 100%;
+  border-right: 1px solid rgb(97, 218, 251);
+}
+.messageBlock {
+  width: 70%;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+}
+.messages {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  width: 100%;
+  height: 100%;
+}
+.item {
+  width: 100%;
+  padding-left: 6px;
+}
+.item a{
+  color: #fff;
+  text-decoration: none;
+}
+.activeDialog {
+  transform: scale(1.1, 1.1) !important; 
+  color: rgb(97, 218, 251) !important;
+  background-color: rgba(255, 255, 255, .1) !important;
+}
+.ava {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 15px;
+}
+.img {
+  width: 150%;
+}
+.dialogItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  width: 90%;
+  transition: .2s;
+}
+.dialogItem:hover {
+  background-color: rgba(255, 255, 255, .3);
+}
+.messageYou, .messageFriend  {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 100%;
+}
+.messageFriend {
+  justify-content: flex-end;
+}
+.messageYou{
+  justify-content: flex-start;
+}
+.text {
+  padding: 10px;
+  background-color: rgba(255, 255, 255, .1);
+  border-radius: 10px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+.panel {
+  margin-top: 30px;
+  border-top: 1px solid rgb(97, 218, 251);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.textarea {
+  min-width: 600px;
+  max-width: 600px;
+
+  min-height: 20px;
+  max-height: 20px;
+
+  display: block;
+  background-color: rgba(0, 0, 0, 0.185);
+  outline: none;
+  color: #fff;
+  font-family: sans-serif;
+  font-size: 16px;
+  border-radius: 12px;
+  border: 1px solid rgb(97, 218, 251);
+  border-top: none;
+  padding: 10px;
+}
+
+.button {
+  background-color: rgb(97, 218, 251);
+  border-radius: 10px;
+  border: none;
+  padding: 5px 10px;
+  height: 30px;
+  width: 100px;
+  font-weight: 700;
+  transition: .2s;
+  outline: none;
+  margin-left: 10px;
+}
+.button:hover {
+  box-shadow: 0 0 7px 2px rgba(97, 218, 251, .5);
+}
