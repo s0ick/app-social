@@ -11,7 +11,7 @@ ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
-        <App />
+        <App isAuth={store.getState().auth.isAuth}/>
       </Provider>
     </BrowserRouter>
   </React.StrictMode>,

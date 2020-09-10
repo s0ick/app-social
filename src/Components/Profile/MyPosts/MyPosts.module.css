@@ -1,43 +1,65 @@
 .block {
-  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
 .textarea {
-  min-width: 800px;
-  max-width: 800px;
+  min-width: 500px;
+  max-width: 500px;
 
   min-height: 20px;
   max-height: 20px;
+  margin-right: 20px;
 
   display: block;
-  background-color: rgba(0, 0, 0, 0.185);
+  background-color: transparent;
   outline: none;
   color: #fff;
   font-family: sans-serif;
   font-size: 16px;
-  border-radius: 12px;
-  border: 1px solid rgb(97, 218, 251);
-  border-top: none;
+  border: none;
+  border-bottom: 2px solid #565c68;
   padding: 10px;
+  margin-bottom: 10px;
+  transition: .2s;
+}
+.textarea:focus {
+  border-bottom: 2px solid #64ffda;
 }
 .button {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  background-color: rgb(97, 218, 251);
+  color: #fff;
+  background-color: transparent;
+  border: 1.5px solid #64ffda;
   border-radius: 10px;
-  border: none;
-  padding: 5px 10px;
-  height: 30px;
-  width: 100px;
+  margin-top: 10px;
+  padding: 6px 10px;
+  width: 130px;
   font-weight: 700;
   transition: .2s;
   outline: none;
+  margin-left: 10px;
+  text-transform: uppercase;
 }
 .button:hover {
-  box-shadow: 0 0 7px 2px rgba(97, 218, 251, .5);
+  box-shadow: inset 0 0 7px 2px rgba(72, 255, 194, 0.5);
+}
+.title {
+  text-align: center;
 }
 .panel {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
+}
+.myPostBlock {
+  width: 100%;
+  background: linear-gradient(rgb(29, 37, 41), #37474f);
+  padding: 20px 0;
+}
+.postsBlock {
+  width: 90%;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }

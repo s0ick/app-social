@@ -1,24 +1,15 @@
-import React from 'react';
-import {PostChangeCreator, addPostCreator} from '../../../Redux/Reducer/profileReducer';
+import { addPost } from '../../../Redux/Reducer/profileReducer';
 import MyPosts from './MyPosts';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
+import {reset} from 'redux-form';
 
 let mapStateToProps = (state) => {
   return {
-    posts: state.ProfilePage.posts,
-    newPostText: state.ProfilePage.newPostText 
+    posts: state.ProfilePage.posts
   };
 };
-let mapDispatchToProps = (dispatch) => {
-  return {
-    addPost() {
-      dispatch(addPostCreator());     
-    },
-    PostChange(text) {
-      dispatch(PostChangeCreator(text));
-    }
-  };
-};
-const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts);
 
-export default MyPostsContainer;
+export default compose(
+  connect(mapStateToProps, {addPost, reset})
+)(MyPosts);

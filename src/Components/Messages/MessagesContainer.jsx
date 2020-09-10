@@ -1,24 +1,17 @@
-import {MessageChangeCreator, addMessageCreator} from '../../Redux/Reducer/messageReducer';
+import { addMessage } from '../../Redux/Reducer/messageReducer';
 import Messages from './Messages';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
+import {reset} from 'redux-form';
 
 let mapStateToProps = (state) => {
   return {
     dialogs: state.MessagesPage.dialogs,
-    messages: state.MessagesPage.messages,
-    newMessageText: state.MessagesPage.newMessageText 
+    messages: state.MessagesPage.messages
   };
 };
-let mapDispatchToProps = (dispatch) => {
-  return {
-    addMessage() {
-      dispatch(addMessageCreator());     
-    },
-    MessageChange(text) {
-      dispatch(MessageChangeCreator(text));
-    }
-  };
-};
-const MessagesContainer = connect(mapStateToProps, mapDispatchToProps)(Messages);
 
-export default MessagesContainer;
+
+export default compose(
+  connect(mapStateToProps, {addMessage, reset})
+)(Messages);

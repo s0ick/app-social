@@ -33,25 +33,28 @@ const Navbar = (props) => {
     arrowRight.current.classList.toggle(style.activeRight);
     arrowLeft.current.classList.toggle(style.activeLeft);
     list.current.classList.toggle(style.activeList);
-    friendsBlock.current.classList.toggle(style.activeBlock);
   };  
 
-  return (
-    <nav className={style.navbar}>
-      <div className={style.block}>
-        {navBarLinks}
-      </div>
-      <div ref={friendsBlock} className={style.friends}>
-        <h3 onClick={activeList} className={style.subtitle}>
-          Возможные друзья
-          <span ref={arrowLeft} className={style.arrowLeft}></span>
-          <span ref={arrowRight} className={style.arrowRight}></span>
-        </h3>
-        <div ref={list} className={style.list}>
-          {friends}
+  if(props.isAuth) {
+    return (
+      <nav className={style.navbar}>
+        <div className={style.block}>
+          {navBarLinks}
         </div>
-      </div>
-    </nav>
-  )
+        <div ref={friendsBlock} className={style.friends}>
+          <h3 onClick={activeList} className={style.subtitle}>
+            Возможные друзья
+            <span ref={arrowLeft} className={style.arrowLeft}></span>
+            <span ref={arrowRight} className={style.arrowRight}></span>
+          </h3>
+          <div ref={list} className={style.list}>
+            {friends}
+          </div>
+        </div>
+      </nav>
+    )
+  } else {
+    return <></>
+  }
 }
 export default Navbar;

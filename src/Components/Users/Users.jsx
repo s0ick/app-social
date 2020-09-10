@@ -1,46 +1,35 @@
 import React from 'react';
 import style from './Users.module.css';
 
-const User = (props) => {
-  return (
-    <div>
-      <span>
-        <div>
-          <img src={props.photo_url}/>
-        </div>
-        <div>
-          <button>Follow</button>
-        </div>
-      </span>
-      <span>
-        <span>
-          <div>props.fullName</div>
-          <div>props.status</div>
-        </span>
-        <span>
-          <div>props.county</div>
-          <div>props.city</div>
-        </span>
-      </span>
-    </div>
-  );
-};
-
 const Users = (props) => {
-
-  let UserElem = props.users
-      .map(u => <User key={u.id} 
-                      photo_url={u.photo_url}
-                      fullName={u.fullName}
-                      status={u.status}
-                      country={u.location.county}
-                      city={u.location.city}
-  />);
-
+  let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
+  let pages = [];
+  for(let i = 1; i <= pagesCount; i++){
+    pages.push(i);
+  }
   return (
-    <div>
-      {UserElem}
+    <div className={style.users}>
+      <div className={style.user}>
+        {props.getUsersList()}
+      </div>
+      <div>
+        <button className={style.button}>Show more</button>
+      </div>
+      <div className={style.panelContainer}>
+        <div className={style.panel}>
+          {/* <h3>Panel</h3> */}
+          <div className={style.scroll}>
+            {pages.map(p => {
+              return <span
+              onClick={ () => {props.onPageChanged(p)}} 
+              className={props.currentPage === p && style.selectedPage}>
+                {p}
+              </span>
+            })}
+          </div>
+        </div>
+      </div>
     </div>
-  );
-}
+  )
+};
 export default Users;

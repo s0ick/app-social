@@ -2,8 +2,13 @@ import React from 'react';
 import style from './Messages.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import MessageItem from './MessageItem/MessageItem';
+import MessageForm from './MessageForm';
 
 const Messages = (props) => {
+  const addNewMessage = (values) => {
+    props.addMessage(values.newMessageBody);
+    props.reset('AddMessage'); 
+  };
 
   const dialogElems = props.dialogs
         .map(d => <DialogItem key={d.id} id={d.id} name={d.name}/>);
@@ -11,15 +16,6 @@ const Messages = (props) => {
   const messageElems = props.messages
         .map(m => <MessageItem key={m.id} id={m.id} message={m.message}/>);
 
-
-  const addMessage = () => {
-    props.addMessage();     
-  };
-
-  const MessageChange = (event) => {
-    const text = event.target.value;
-    props.MessageChange(text);
-  };
   return (
     <div className={style.block}>
       <div className={style.dialogsblock}>
@@ -29,10 +25,7 @@ const Messages = (props) => {
         <div className={style.messages}>
           {messageElems}
         </div>
-        <div className={style.panel}>
-          <textarea onChange={MessageChange} placeholder='Write message...' className={style.textarea} value={props.newMessageText} />
-          <button onClick={addMessage} className={style.button}>Send</button>
-        </div>
+        <MessageForm onSubmit={addNewMessage} />
       </div>
     </div>
   );

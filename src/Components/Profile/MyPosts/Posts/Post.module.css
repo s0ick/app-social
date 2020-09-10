@@ -17,8 +17,40 @@
 }
 .like {
   font-size: 16px;
+  color: #64ffda;
 }
 .message {
   margin-top: 5px;
   margin-bottom: 2px;
+}
+.content {
+  display: inline-block !important;
+  background-color: #263238;
+  padding: 10px;
+  margin-left: 60px;
+  border-radius: 12px;
+  border-top-left-radius: 0px;
+  display: flex;
+  justify-content: flex-start;
+  box-shadow: 5px 5px 5px 1px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+.content::before {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 0;
+  border: 30px solid transparent; 
+  border-left: 10px solid #263238; 
+  border-top: 10px solid #263238;
+  top: -8px;
+  left: -8px;
+  border-top-right-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+.likeBlock {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
 }
