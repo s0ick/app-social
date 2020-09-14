@@ -7,6 +7,10 @@ class ProfileStatus extends React.Component {
     status: this.props.status
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextProps != this.props || nextState != this.state;
+  }
+
   activeteEditMode = () => {
     this.setState({
       editMode: true

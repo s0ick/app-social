@@ -1,7 +1,7 @@
 import React from 'react';
 import style from'./ProfileInfo.module.css';
 import ProfileDescp from './ProfileDescp';
-import ProfileStatus from './ProfileStatus/ProfileStatus';
+import ProfileStatus from './ProfileStatus/ProfileStatusHook';
 import defaultUserImg from '../../../assets/images/user_null.png';
 
 import FaceBook from '../../../assets/images/contacts/facebook.svg';
@@ -12,7 +12,7 @@ import Instagram from '../../../assets/images/contacts/inst.svg';
 import WebSite from '../../../assets/images/contacts/website.svg';
 import Twitter from '../../../assets/images/contacts/twitter.svg';
 
-const ProfileInfo = (props) => {
+const ProfileInfo = React.memo((props) => {
   let statusJob = '';
   if(props.profile.lookingForAJob) {
     statusJob = props.profile.lookingForAJobDescription;
@@ -79,6 +79,6 @@ const ProfileInfo = (props) => {
       </div>
     </div>
   );
-}
+});
 
 export default ProfileInfo;

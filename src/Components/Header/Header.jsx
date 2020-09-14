@@ -4,7 +4,7 @@ import style from './Header.module.css';
 import avatar from '../../assets/images/user_null.png';
 import { NavLink } from 'react-router-dom';
 
-const Header = (props) => {
+const Header = React.memo((props) => {
   return (
     <header className={style.header}>
       <img src={logo} alt="logo" className={style.img}/>
@@ -20,6 +20,6 @@ const Header = (props) => {
       </div>
     </header>
   )
-};
+});
 
 export default Header;

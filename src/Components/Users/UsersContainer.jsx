@@ -9,11 +9,15 @@ import { compose } from 'redux';
 
 class UsersContainer extends React.Component {
   componentDidMount() {
-    this.props.getUsers(this.props.currentPage, this.props.pageSize);
+    this.props.requestUsers(this.props.currentPage, this.props.pageSize);
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextProps != this.props || nextState != this.state;
   }
 
   onPageChanged = (pageNumber) => {
-    this.props.getUsers(pageNumber, this.props.pageSize);
+    this.props.requestUsers(pageNumber, this.props.pageSize);
     this.props.setCurrentPage(pageNumber);
   }
 

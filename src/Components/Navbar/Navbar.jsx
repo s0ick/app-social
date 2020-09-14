@@ -3,7 +3,7 @@ import style from './Navbar.module.css';
 import { NavLink } from 'react-router-dom';
 
 
-const Navbar = (props) => {
+const Navbar = React.memo((props) => {
   const navBarLinks = props.item
     .map(l => {
       return (
@@ -56,5 +56,5 @@ const Navbar = (props) => {
   } else {
     return <></>
   }
-}
+});
 export default Navbar;

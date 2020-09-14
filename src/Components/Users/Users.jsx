@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './Users.module.css';
 
-const Users = (props) => {
+const Users = React.memo((props) => {
   let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
   let pages = [];
   for(let i = 1; i <= pagesCount; i++){
@@ -31,5 +31,5 @@ const Users = (props) => {
       </div>
     </div>
   )
-};
+});
 export default Users;

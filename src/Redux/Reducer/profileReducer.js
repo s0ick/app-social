@@ -50,7 +50,8 @@ export const getProfile = (userId, myId) => (dispatch) => {
       dispatch(setUserProfile(response));
     });
 };
-export const getStatus = (userId) => (dispatch) => {
+export const getStatus = (userId, myId) => (dispatch) => {
+  if(!userId) userId = myId;
   ProfileAPI.getStatus(userId)
     .then(response => {
       dispatch(setStatus(response.data));

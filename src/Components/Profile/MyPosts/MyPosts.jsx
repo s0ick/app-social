@@ -2,9 +2,8 @@ import React from 'react';
 import style from'./MyPosts.module.css';
 import Post from './Posts/Post';
 import MyPostForm from './MyPostForm';
-import {reset} from 'redux-form';
 
-const MyPosts = (props) => {
+const MyPosts = React.memo((props) => {
   const postElems = props.posts
       .map(p => <Post key={p.id} id={p.id} message={p.message} likeCount={p.likeCount}/>)
       .reverse();
@@ -25,5 +24,5 @@ const MyPosts = (props) => {
       </div>
     </div>
   )
-}
+});
 export default MyPosts;

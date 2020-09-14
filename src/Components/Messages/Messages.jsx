@@ -4,7 +4,7 @@ import DialogItem from './DialogItem/DialogItem';
 import MessageItem from './MessageItem/MessageItem';
 import MessageForm from './MessageForm';
 
-const Messages = (props) => {
+const Messages = React.memo((props) => {
   const addNewMessage = (values) => {
     props.addMessage(values.newMessageBody);
     props.reset('AddMessage'); 
@@ -29,5 +29,5 @@ const Messages = (props) => {
       </div>
     </div>
   );
-}
+});
 export default Messages;
