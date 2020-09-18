@@ -1,11 +1,12 @@
 import { UserAPI, FollowedAPI } from '../../API/api';
+import { updateObjectInArray } from '../../Utils/Helper/objectsHelper';
 
-const TOGGLE_FOLLOW = 'TOGGLE-FOLLOW',
-      SET_CURRENT_PAGE = 'SET-CURRENT-PAGE',
-      TOTAL_COUNT = 'TOTAL-COUNT',
-      TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING',
-      FOLLOWING_PROGRESS = 'FOLLOWING-PROGRESS',
-      SET_USERS = 'SET-USERS';
+const TOGGLE_FOLLOW = 'Users/TOGGLE-FOLLOW',
+      SET_CURRENT_PAGE = 'Users/SET-CURRENT-PAGE',
+      TOTAL_COUNT = 'Users/TOTAL-COUNT',
+      TOGGLE_IS_FETCHING = 'Users/TOGGLE-IS-FETCHING',
+      FOLLOWING_PROGRESS = 'Users/FOLLOWING-PROGRESS',
+      SET_USERS = 'Users/SET-USERS';
     
 const initialState = {
   users: [],
@@ -19,6 +20,7 @@ const usersReducer = (state = initialState, action) => {
   switch(action.type) {
     case TOGGLE_FOLLOW:
       return { ...state,
+        //users: updateObjectInArray(state.users, action.userID, "id", {followed: true/false})
         users: state.users.map(u => {
           if(u.id == action.userID) return {...u, followed: !u.followed};
           return u;
@@ -66,17 +68,16 @@ export const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFe
 export const progressLoading = (isLoading, userId) => ({type: FOLLOWING_PROGRESS, isLoading, userId});
 
 // THUNK CREATORS
-export const requestUsers = (currentPage , pageSize) => (dispatch) => {
+export const requestUsers = (currentPage , pageSize) => async (dispatch) => {
   dispatch(toggleIsFetching(true));
     
-  UserAPI.getUsers(currentPage, pageSize)
-    .then(response => {
-      dispatch(toggleIsFetching(false));
-      dispatch(setUsers(response.items));
-      dispatch(setUsersTotalCount(response.totalCount));
-    });
+  const response = await UserAPI.getUsers(currentPage, pageSize);
+  
+  dispatch(toggleIsFetching(false));
+  dispatch(setUsers(response.items));
+  dispatch(setUsersTotalCount(response.totalCount));
 }
-export const following = (followed, id) => (dispatch) => {
+export const following = (followed, id) => async (dispatch) => {
   const activeToggle = (res) => {
     if(res.resultCode === 0) {
       dispatch(toggleFollow(id));
@@ -85,15 +86,11 @@ export const following = (followed, id) => (dispatch) => {
   
   dispatch(progressLoading(true, Number(id)));
   if(followed) {
-    FollowedAPI.unFollowed(id)
-      .then(response => {
-        activeToggle(response);
-      });
+    const response = await FollowedAPI.unFollowed(id)
+    activeToggle(response);
   } else {
-    FollowedAPI.followed(id)
-      .then(response => {
-        activeToggle(response);
-      });
+    const response = await FollowedAPI.followed(id)
+    activeToggle(response);
   }
 }
 

@@ -1,8 +1,9 @@
 import { ProfileAPI } from '../../API/api';
 
-const ADD_POST = 'ADD_POST',
-      SET_STATUS = 'SET-STATUS',
-      SET_USER_PROFILE = 'SET-USER-PROFILE';
+const ADD_POST = 'Profile/ADD-POST',
+      DELETE_POST = 'Profile/DELETE-POST',
+      SET_STATUS = 'Profile/SET-STATUS',
+      SET_USER_PROFILE = 'Profile/SET-USER-PROFILE';
 
 const initialState = {
   posts: [
@@ -22,6 +23,11 @@ const profileReducer = (state = initialState, action) => {
           likeCount: 0,
         }]
       };
+
+    case DELETE_POST:
+      return {...state,
+        posts: state.posts.filter(p => p.id !== action.postId)
+      };
       
     case SET_USER_PROFILE:
       return {...state,
@@ -39,6 +45,7 @@ const profileReducer = (state = initialState, action) => {
 
 // ACTIONS CREATOR
 export const addPost = (newPostBody) => ({type: ADD_POST, newPostBody});
+export const deletePost = (postId) => ({type: DELETE_POST, postId});
 export const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile});
 export const setStatus = (status) => ({type: SET_STATUS, status});
 

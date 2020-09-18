@@ -3,9 +3,10 @@ import style from './Navbar.module.css';
 import { NavLink } from 'react-router-dom';
 
 
-const Navbar = React.memo((props) => {
-  const navBarLinks = props.item
+const Navbar = React.memo(({item, fullName, isAuth, userId}) => {
+  const navBarLinks = item
     .map(l => {
+      if (l.url === '/profile') l.url = `${l.url}/${userId}`;
       return (
         <div key={l.url} className={style.item}>
           <NavLink className={style.link} activeClassName={style.active} to={l.url}>{l.link}</NavLink>
@@ -13,7 +14,7 @@ const Navbar = React.memo((props) => {
       )
     });
 
-  const friends = props.fullName
+  const friends = fullName
     .map(n => {
       return (
         <div key={n.secondName} className={style.elem}>
@@ -35,7 +36,7 @@ const Navbar = React.memo((props) => {
     list.current.classList.toggle(style.activeList);
   };  
 
-  if(props.isAuth) {
+  if(isAuth) {
     return (
       <nav className={style.navbar}>
         <div className={style.block}>
@@ -43,7 +44,7 @@ const Navbar = React.memo((props) => {
         </div>
         <div ref={friendsBlock} className={style.friends}>
           <h3 onClick={activeList} className={style.subtitle}>
-            Возможные друзья
+            Possible friends
             <span ref={arrowLeft} className={style.arrowLeft}></span>
             <span ref={arrowRight} className={style.arrowRight}></span>
           </h3>

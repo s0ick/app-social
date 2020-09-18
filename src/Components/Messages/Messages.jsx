@@ -4,16 +4,16 @@ import DialogItem from './DialogItem/DialogItem';
 import MessageItem from './MessageItem/MessageItem';
 import MessageForm from './MessageForm';
 
-const Messages = React.memo((props) => {
+const Messages = React.memo(({addMessage, reset, dialogs, messages}) => {
   const addNewMessage = (values) => {
-    props.addMessage(values.newMessageBody);
-    props.reset('AddMessage'); 
+    addMessage(values.newMessageBody);
+    reset('AddMessage'); 
   };
 
-  const dialogElems = props.dialogs
+  const dialogElems = dialogs
         .map(d => <DialogItem key={d.id} id={d.id} name={d.name}/>);
 
-  const messageElems = props.messages
+  const messageElems = messages
         .map(m => <MessageItem key={m.id} id={m.id} message={m.message}/>);
 
   return (

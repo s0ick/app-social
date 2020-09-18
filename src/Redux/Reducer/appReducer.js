@@ -1,6 +1,6 @@
 import { AuthMe } from "./authReducer";
 
-const INITIALIZED_SUCCESS = 'INITIALIZED_SUCCESS';
+const INITIALIZED_SUCCESS = 'APP/INITIALIZED_SUCCESS';
 
 let initial = {
   initialized: false,
@@ -21,12 +21,11 @@ const appReducer = (state = initial, action) => {
 export const setInitializedSuccess = () => ({type: INITIALIZED_SUCCESS});
 
 // THUNK CREATORS
-export const initializeApp = () => (dispatch) => {
+export const initializeApp = () => async (dispatch) => {
   let promise = dispatch(AuthMe());
-  Promise.all([promise])
-    .then(() => {
-      dispatch(setInitializedSuccess());
-    });
+  await Promise.all([promise]);
+  
+  dispatch(setInitializedSuccess());
 };
 
 export default appReducer;

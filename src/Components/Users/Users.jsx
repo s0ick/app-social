@@ -1,8 +1,8 @@
 import React from 'react';
 import style from './Users.module.css';
 
-const Users = React.memo((props) => {
-  let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
+const Users = ({totalUsersCount, pageSize, getUsersList, onPageChanged, currentPage}) => {
+  let pagesCount = Math.ceil(totalUsersCount / pageSize);
   let pages = [];
   for(let i = 1; i <= pagesCount; i++){
     pages.push(i);
@@ -10,7 +10,7 @@ const Users = React.memo((props) => {
   return (
     <div className={style.users}>
       <div className={style.user}>
-        {props.getUsersList()}
+        {getUsersList()}
       </div>
       <div>
         <button className={style.button}>Show more</button>
@@ -21,8 +21,8 @@ const Users = React.memo((props) => {
           <div className={style.scroll}>
             {pages.map(p => {
               return <span
-              onClick={ () => {props.onPageChanged(p)}} 
-              className={props.currentPage === p && style.selectedPage}>
+              onClick={ () => {onPageChanged(p)}} 
+              className={currentPage === p && style.selectedPage}>
                 {p}
               </span>
             })}
@@ -31,5 +31,5 @@ const Users = React.memo((props) => {
       </div>
     </div>
   )
-});
+};
 export default Users;

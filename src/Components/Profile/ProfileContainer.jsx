@@ -9,9 +9,10 @@ import { compose } from 'redux';
 
 class ProfileContainer extends React.Component {
   componentDidMount() {
-    let userId = this.props.match.params.userId;
-    this.props.getProfile(userId, this.props.id);
-    this.props.getStatus(userId, this.props.id);
+    let { getProfile, getStatus, id, match} = this.props;
+    let userId = match.params.userId;
+    getProfile(userId, id);
+    getStatus(userId, id);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -19,8 +20,9 @@ class ProfileContainer extends React.Component {
   }
 
   render() {
+    let { profile } = this.props;
     return <>
-       { !this.props.profile ? <Preloader /> : 
+       { !profile ? <Preloader /> : 
           <Profile {...this.props} />
        }
     </>

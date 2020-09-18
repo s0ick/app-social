@@ -12,41 +12,42 @@ import Instagram from '../../../assets/images/contacts/inst.svg';
 import WebSite from '../../../assets/images/contacts/website.svg';
 import Twitter from '../../../assets/images/contacts/twitter.svg';
 
-const ProfileInfo = React.memo((props) => {
+const ProfileInfo = React.memo(({profile, status, updateStatus}) => {
   let statusJob = '';
-  if(props.profile.lookingForAJob) {
-    statusJob = props.profile.lookingForAJobDescription;
+  if(profile.lookingForAJob) {
+    statusJob = profile.lookingForAJobDescription;
   }
+  let contact = profile.contacts;
 
   const Links = [];
-  if(!!props.profile.contacts.facebook) 
-    Links.push(<a href={`https://${props.profile.contacts.facebook}`} className={style.link}><img src={FaceBook} alt="FaceBook"/></a>)
-  if(!!props.profile.contacts.website) 
-    Links.push(<a href={`https://${props.profile.contacts.website}`} className={style.link}><img src={WebSite} alt="WebSite"/></a>)
-  if(!!props.profile.contacts.vk) 
-    Links.push(<a href={`https://${props.profile.contacts.vk}`} className={style.link}><img src={VK} alt="VK"/></a>)
-  if(!!props.profile.contacts.twitter) 
-    Links.push(<a href={`https://${props.profile.contacts.twitter}`} className={style.link}><img src={Twitter} alt="Twitter"/></a>)
-  if(!!props.profile.contacts.instagram) 
-    Links.push(<a href={`https://${props.profile.contacts.instagram}`} className={style.link}><img src={Instagram} alt="Instagram"/></a>)
-  if(!!props.profile.contacts.youtube) 
-    Links.push(<a href={`https://${props.profile.contacts.youtube}`} className={style.link}><img src={YouTube} alt="YouTube"/></a>)
-  if(!!props.profile.contacts.github) 
-    Links.push(<a href={`https://${props.profile.contacts.github}`} className={style.link}><img src={GitHub} alt="GitHub"/></a>)
+  if(!!contact.facebook) 
+    Links.push(<a href={`https://${contact.facebook}`} className={style.link}><img src={FaceBook} alt="FaceBook"/></a>)
+  if(!!contact.website) 
+    Links.push(<a href={`https://${contact.website}`} className={style.link}><img src={WebSite} alt="WebSite"/></a>)
+  if(!!contact.vk) 
+    Links.push(<a href={`https://${contact.vk}`} className={style.link}><img src={VK} alt="VK"/></a>)
+  if(!!contact.twitter) 
+    Links.push(<a href={`https://${contact.twitter}`} className={style.link}><img src={Twitter} alt="Twitter"/></a>)
+  if(!!contact.instagram) 
+    Links.push(<a href={`https://${contact.instagram}`} className={style.link}><img src={Instagram} alt="Instagram"/></a>)
+  if(!!contact.youtube) 
+    Links.push(<a href={`https://${contact.youtube}`} className={style.link}><img src={YouTube} alt="YouTube"/></a>)
+  if(!!contact.github) 
+    Links.push(<a href={`https://${contact.github}`} className={style.link}><img src={GitHub} alt="GitHub"/></a>)
 
   let AboutMe = <></>;
-  if(!!props.profile.aboutMe) {
-    AboutMe = <ProfileDescp subtitle="About me:" info={props.profile.aboutMe} />;
+  if(!!profile.aboutMe) {
+    AboutMe = <ProfileDescp subtitle="About me:" info={profile.aboutMe} />;
   } 
   
   let Job = <></>;
-  if(props.profile.lookingForAJob && !!props.profile.lookingForAJobDescription) {
+  if(profile.lookingForAJob && !!profile.lookingForAJobDescription) {
     Job = <ProfileDescp subtitle="Job:" info={statusJob} />
   }
   
   let ava = '';
-  if(!!props.profile.photos.large) {
-    ava = props.profile.photos.large;
+  if(!!profile.photos.large) {
+    ava = profile.photos.large;
   } else ava = defaultUserImg;
 
   return (
@@ -59,7 +60,7 @@ const ProfileInfo = React.memo((props) => {
           <div className={style.avatar__image}>
             <img className={style.avatar} src={ava} alt="ava"/>
           </div>
-          <h2 className={style.fullName}>{props.profile.fullName}</h2>
+          <h2 className={style.fullName}>{profile.fullName}</h2>
           <div className={style.locations}>
             <span>Russian</span>
             <span>, </span>
@@ -71,7 +72,7 @@ const ProfileInfo = React.memo((props) => {
         </div>
         <div className={style.description}>
           {Job}
-          <ProfileStatus status={props.status} updateStatus={props.updateStatus} />
+          <ProfileStatus status={status} updateStatus={updateStatus} />
         </div>
       </div>
       <div className={style.background__image}>

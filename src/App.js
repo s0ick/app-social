@@ -6,6 +6,9 @@ import { RoutesContainer } from './Routes/RoutesContainer';
 import { initializeApp } from './Redux/Reducer/appReducer';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
+import store from './Redux/redux-store';
+import { Provider } from 'react-redux';
+import {BrowserRouter } from 'react-router-dom';
 import Preloader from './Components/common/Preloader/Preloader';
 
 class App extends React.Component {
@@ -39,7 +42,17 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default compose(
-  connect(mapStateToProps, {initializeApp})
+let AppContainer = compose(
+  connect(mapStateToProps, {initializeApp}),
 )(App);
+
+export const ReactiveNetworkApp = (props) => {
+  return (
+    <BrowserRouter>
+      <Provider store={store}>
+        <AppContainer isAuth={store.getState().auth.isAuth}/>
+      </Provider>
+    </BrowserRouter>
+  )
+}
 

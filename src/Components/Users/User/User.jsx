@@ -3,7 +3,7 @@ import style from './User.module.css';
 import { NavLink } from 'react-router-dom';
 import userPhoto from '../../../assets/images/user_null.png';
 
-const User = (props) => {
+const User = React.memo((props) => {
   return (
     <div className={style.user}>
       <div className={style.block}>
@@ -32,6 +32,6 @@ const User = (props) => {
     </NavLink>
     </div>
   );
-};
+});
 
 export default User;

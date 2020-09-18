@@ -11,12 +11,12 @@ class ProfileStatus extends React.Component {
     return nextProps != this.props || nextState != this.state;
   }
 
-  activeteEditMode = () => {
+  activateEditMode = () => {
     this.setState({
       editMode: true
     });
   }
-  deactiveteEditMode = () => {
+  deactivateEditMode = () => {
     this.setState({
       editMode: false
     });
@@ -43,11 +43,11 @@ class ProfileStatus extends React.Component {
         <div className={style.statusPanel}>
           {
             !this.state.editMode &&
-            <p onDoubleClick={this.activeteEditMode} className={style.status}>{!this.props.status ? 'Hi!' : this.props.status}</p>
+            <p onDoubleClick={this.activateEditMode} className={style.status}>{!this.props.status ? 'Hi!' : this.props.status}</p>
           }
           {
             this.state.editMode &&
-            <input onChange={this.onStatusChange} autoFocus={true} onBlur={this.deactiveteEditMode} value={this.state.status} type="text" name="status" className={style.input}/>
+            <input onChange={this.onStatusChange} autoFocus={true} onBlur={this.deactivateEditMode} value={this.state.status} type="text" name="status" className={style.input}/>
           }
         </div>
       </div>

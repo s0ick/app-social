@@ -9,24 +9,24 @@ import { compose } from 'redux';
 
 class UsersContainer extends React.Component {
   componentDidMount() {
-    this.props.requestUsers(this.props.currentPage, this.props.pageSize);
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return nextProps != this.props || nextState != this.state;
+    let { currentPage, pageSize, requestUsers } = this.props;
+    requestUsers(currentPage, pageSize);
   }
 
   onPageChanged = (pageNumber) => {
-    this.props.requestUsers(pageNumber, this.props.pageSize);
-    this.props.setCurrentPage(pageNumber);
+    let { requestUsers, setCurrentPage, pageSize } = this.props;
+    requestUsers(pageNumber, pageSize);
+    setCurrentPage(pageNumber);
   }
 
   onFollowChanged = (id, followed) => {
-    this.props.following(followed, id);
+    let { following } = this.props;
+    following(followed, id);
   }
 
   getUsersList = () => {
-    return this.props.users
+    let { users, isLoading } = this.props;
+    return users
       .map(u => 
         <User id={u.id}
               followed={u.followed} 
@@ -35,36 +35,25 @@ class UsersContainer extends React.Component {
               status={u.status}
               country="Russian"
               city="Moscow"
-              loading={this.props.isLoading}
+              loading={isLoading}
 
               onFollowChanged={this.onFollowChanged}
         />)
   }
 
   render() {
+    let { totalUsersCount, isFetching, pageSize, currentPage } = this.props;
     return <>
-      { this.props.isFetching ? <Preloader /> : 
+      { isFetching ? <Preloader /> : 
           <Users getUsersList={this.getUsersList}
                 onPageChanged={this.onPageChanged}
-                totalUsersCount={this.props.totalUsersCount}
-                pageSize={this.props.pageSize}
-                currentPage={this.props.currentPage}          
+                totalUsersCount={totalUsersCount}
+                pageSize={pageSize}
+                currentPage={currentPage}          
       />}
     </>
   }
 }
-
-
-// let mapStateToProps = (state) => {
-//   return {
-//     users: state.UsersPage.users,
-//     pageSize: state.UsersPage.pageSize,
-//     totalUsersCount: state.UsersPage.totalUsersCount,
-//     currentPage: state.UsersPage.currentPage,
-//     isFetching: state.UsersPage.isFetching,
-//     isLoading: state.UsersPage.isLoading
-//   };
-// };
 let mapStateToProps = (state) => {
   return {
     users: Selectors.getUsers(state),

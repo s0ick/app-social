@@ -3,7 +3,7 @@ import style from './Preloader.module.css';
 
 const Preloader = () => {
   return (
-    <div class={style.ldsRing}>
+    <div className={style.ldsRing}>
       <div></div>
       <div></div>
       <div></div>

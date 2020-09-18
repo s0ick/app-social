@@ -1,8 +1,8 @@
 import { AuthAPI } from '../../API/api';
 import { stopSubmit } from 'redux-form';
 
-const SET_USER_DATA = 'SET-USER-DATA',
-      SET_USER_PHOTO = 'SET-USER-PHOTO';
+const SET_USER_DATA = 'Auth/SET-USER-DATA',
+      SET_USER_PHOTO = 'Auth/SET-USER-PHOTO';
 
 let initial = {
   userId: null,
@@ -33,38 +33,33 @@ export const setUserPhoto = (photo) => ({type: SET_USER_PHOTO, photo});
 export const setUserData = (userId, email, login, isAuth) => ({type: SET_USER_DATA, payload: {userId, email, login, isAuth}});
 
 // THUNK CREATORS
-export const AuthMe = () => (dispatch) => {
-  return AuthAPI.authMe()
-    .then(response => {
-      if(response.resultCode === 0) {
-        let {id, email, login} = response.data;
-        dispatch(setUserData(id, email, login, true));
-        AuthAPI.getMyPhoto(id)
-          .then(res => {
-            dispatch(setUserPhoto(res.photos.large));
-          });
-      }
-  });
-};
-export const authLogin = (email, password, rememberMe, captcha) => (dispatch) => {
+export const AuthMe = () => async (dispatch) => {
+  const response = await AuthAPI.authMe();
 
-  AuthAPI.authLogin(email, password, rememberMe, captcha)
-    .then(response => {
-      if(response.data.resultCode === 0) {
-        dispatch(AuthMe());
-      } else {
-        let message = response.data.messages.length > 0 ? response.data.messages[0] : 'Some error';
-        dispatch(stopSubmit("login", {_error: message}));
-      }
-  });
+  if(response.resultCode === 0) {
+    let {id, email, login} = response.data;
+    dispatch(setUserData(id, email, login, true));
+
+    const res = await AuthAPI.getMyPhoto(id);
+    dispatch(setUserPhoto(res.photos.large));
+  }
 };
-export const authLogout = () => (dispatch) => {
-  AuthAPI.authLogout()
-    .then(response => {
-      if(response.data.resultCode === 0) {
-        dispatch(setUserData(null, null, null, false));
-        dispatch(setUserPhoto(""));
-      }
-  });
+export const authLogin = (email, password, rememberMe, captcha) => async (dispatch) => {
+  const response = await AuthAPI.authLogin(email, password, rememberMe, captcha);
+
+  if(response.data.resultCode === 0) {
+    dispatch(AuthMe());
+  } else {
+    let message = response.data.messages.length > 0 ? response.data.messages[0] : 'Some error';
+    dispatch(stopSubmit("login", {_error: message}));
+  }
+};
+export const authLogout = () => async (dispatch) => {
+   const response = await AuthAPI.authLogout();
+
+  if(response.data.resultCode === 0) {
+    dispatch(setUserData(null, null, null, false));
+    dispatch(setUserPhoto(""));
+  }
 };
 export default authReducer;

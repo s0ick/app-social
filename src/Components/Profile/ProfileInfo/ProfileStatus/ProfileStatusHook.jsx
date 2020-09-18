@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import style from'../ProfileInfo.module.css';
 import { useEffect } from 'react';
 
-const ProfileStatusHook = (props) => {
+const ProfileStatusHook = ({updateStatus, status}) => {
   let [ editMode, setEditMode ] = useState(false);
-  let [ status, setStatus] = useState(props.status);
+  let [ statusNew, setStatus] = useState(status);
 
   useEffect(() => {
-    setStatus(props.status);
-  }, [props.status]);
+    setStatus(status);
+  }, [status]);
 
   const onStatusChange = (event) => {
     setStatus(event.currentTarget.value);
@@ -18,7 +18,7 @@ const ProfileStatusHook = (props) => {
   };
   const deactivateEditMode = () => {
     setEditMode(false);
-    props.updateStatus(status);
+    updateStatus(statusNew);
   };
 
   return (
@@ -27,14 +27,14 @@ const ProfileStatusHook = (props) => {
       <div className={style.statusPanel}>
         {
           !editMode &&
-          <p onDoubleClick={activateEditMode} className={style.status}>{!props.status ? 'Hi!' : props.status}</p>
+          <p onDoubleClick={activateEditMode} className={style.status}>{!status ? 'Hi!' : status}</p>
         }
         {
           editMode &&
           <input onBlur={deactivateEditMode} 
                  onChange={onStatusChange} 
                  autoFocus={true}  
-                 value={status} 
+                 value={statusNew} 
                  type="text" 
                  name="status"
                  autoComplete="off" 

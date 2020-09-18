@@ -6,9 +6,9 @@ import { required, maxLengthAC } from '../../Utils/Validators/validators';
 
 const maxLength = maxLengthAC(200);
 
-const AddMessageForm = (props) => {
+const AddMessageForm = ({handleSubmit}) => {
  return (
-  <form onSubmit={props.handleSubmit} className={style.panel}>
+  <form onSubmit={handleSubmit} className={style.panel}>
     <Field component={Textarea} 
            name={"newMessageBody"} 
            placeholder='Write message...' 

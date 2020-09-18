@@ -7,10 +7,10 @@ import { required, maxLengthAC } from '../../Utils/Validators/validators';
 
 const maxLength = maxLengthAC(50);
 
-const LoginForm = (props) => {
+const LoginForm = ({handleSubmit, error}) => {
 
  return (
-  <form onSubmit={props.handleSubmit} className={style.authBlock + " " + (props.error && errorStyle.formSummaryError)}>
+  <form onSubmit={handleSubmit} className={style.authBlock + " " + (error && errorStyle.formSummaryError)}>
     <div className={style.cardContent}>
       <h3 className={style.cardTitle}>Authorization</h3>
       <div className={style.inputBlock}>
@@ -25,9 +25,9 @@ const LoginForm = (props) => {
       </div>
     </div>
     <div className={style.cardAction}>
-      <button className={style.button} style={{marginRight: 15}}>Sign in</button>
+      <button className={style.button}>Sign in</button>
     </div>
-    <span className={errorStyle.fromSpanError}>{props.error} <span className={errorStyle.ellipse}></span></span>
+    <span className={errorStyle.fromSpanError}>{error} <span className={errorStyle.ellipse}></span></span>
   </form>
  )
 };

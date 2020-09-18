@@ -6,7 +6,8 @@ let mapStateToProps = (state) => {
   return {
     item: state.SideBar.item,
     fullName: state.SideBar.fullName, 
-    isAuth: state.auth.isAuth
+    isAuth: state.auth.isAuth,
+    userId: state.auth.userId
   };
 };
 
